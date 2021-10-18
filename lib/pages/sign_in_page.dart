@@ -133,7 +133,7 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget signinButton() {
+  Widget signinButton(BuildContext context) {
     return Container(
       height: 50,
       margin: const EdgeInsets.only(top: 30),
@@ -152,7 +152,15 @@ class SignInPage extends StatelessWidget {
             fontWeight: medium,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          // Navigator.pushNamedAndRemoveUntil(
+          //   context,
+          //   "/home",
+          //   (Route<dynamic> route) => false,
+          // );
+
+          Navigator.pushNamed(context, "/home");
+        },
       ),
     );
   }
@@ -202,7 +210,7 @@ class SignInPage extends StatelessWidget {
               header(),
               emailInput(),
               passwordInput(),
-              signinButton(),
+              signinButton(context),
               Spacer(),
               footer(context),
             ],
