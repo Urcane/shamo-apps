@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shamo/providers/auth_provider.dart';
 import 'package:shamo/theme.dart';
+import 'package:shamo/widgets/loading_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -11,6 +14,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  bool isLoading = false;
+
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
@@ -19,12 +24,32 @@ class _SignInPageState extends State<SignInPage> {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     handleSignIn() async {
+      setState(() {
+        isLoading = true;
+      });
+
       if (await authProvider.login(
         email: emailController.text,
         password: passwordController.text,
       )) {
         Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: alertColor,
+            content: Text(
+              "Gagal Login!",
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
       }
+
+      Timer(Duration(seconds: 1), () {
+        setState(() {
+          isLoading = false;
+        });
+      });
     }
 
     Widget header() {
@@ -225,7 +250,7 @@ class _SignInPageState extends State<SignInPage> {
               header(),
               emailInput(),
               passwordInput(),
-              signinButton(),
+              isLoading ? LoadingButton() : signinButton(),
               Spacer(),
               footer(),
             ],
