@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shamo/models/user_model.dart';
 
 class AuthService {
-  String baseUrl = "http://10.0.3.2:8000/api";
+  String baseUrl = "http://localhost:8000/api";
 
   Future<UserModel> register({
     required String name,
@@ -39,6 +39,37 @@ class AuthService {
       return _user;
     } else {
       throw Exception("Registrasi Gagal");
+    }
+  }
+
+  Future<UserModel> login({
+    required String email,
+    required String password,
+  }) async {
+    Uri url = Uri.parse('$baseUrl/login');
+    Map<String, String> header = {'Content-type': 'application/json'};
+
+    var body = jsonEncode(<String, dynamic>{
+      "email": email,
+      "password": password,
+    });
+
+    var response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var _data = jsonDecode(response.body)["data"];
+      UserModel _user = UserModel.fromJson(_data["user"]);
+      _user.token = 'Bearer ${_data["access_token"]}';
+
+      return _user;
+    } else {
+      throw Exception("Login Gagal");
     }
   }
 }
