@@ -45,10 +45,8 @@ class _SignInPageState extends State<SignInPage> {
         );
       }
 
-      Timer(Duration(seconds: 1), () {
-        setState(() {
-          isLoading = false;
-        });
+      setState(() {
+        isLoading = false;
       });
     }
 
