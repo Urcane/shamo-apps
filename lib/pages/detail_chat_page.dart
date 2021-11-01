@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shamo/theme.dart';
+import 'package:shamo/widgets/chat_bubble.dart';
 
 class DetailChatPage extends StatelessWidget {
   const DetailChatPage({Key? key}) : super(key: key);
@@ -169,11 +170,29 @@ class DetailChatPage extends StatelessWidget {
       );
     }
 
+    Widget content() {
+      return ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: defaultMargin,
+        ),
+        children: <Widget>[
+          ChatBubble(
+            text: "Halloo",
+            isSender: true,
+          ),
+          ChatBubble(
+            text: "Hallooo dari shop",
+            isSender: false,
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       backgroundColor: background3Color,
       appBar: header(),
       bottomNavigationBar: chatInput(),
-      body: SingleChildScrollView(),
+      body: content(),
     );
   }
 }
