@@ -179,6 +179,7 @@ class DetailChatPage extends StatelessWidget {
           ChatBubble(
             text: "Halloo",
             isSender: true,
+            hasProduct: true,
           ),
           ChatBubble(
             text: "Hallooo dari shop",
