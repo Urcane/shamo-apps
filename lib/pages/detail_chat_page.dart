@@ -120,7 +120,7 @@ class DetailChatPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // _productPreview(),
+            _productPreview(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -192,22 +192,24 @@ class DetailChatPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: background3Color,
       appBar: header(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                content(),
-                Align(
-                  child: _productPreview(),
-                  alignment: Alignment.bottomLeft,
-                ),
-              ],
-            ),
-          ),
-          chatInput(),
-        ],
-      ),
+      bottomNavigationBar: chatInput(),
+      body: content(),
+      // body: Column(
+      //   children: <Widget>[
+      //     Expanded(
+      //       child: Stack(
+      //         children: <Widget>[
+      //           content(),
+      //           Align(
+      //             child: _productPreview(),
+      //             alignment: Alignment.bottomLeft,
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //     chatInput(),
+      //   ],
+      // ),
     );
   }
 }
