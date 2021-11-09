@@ -18,6 +18,15 @@ class _ProductPageState extends State<ProductPage> {
     'assets/pictures/image_shoes.png',
   ];
 
+  List familiarShoesList = [
+    'assets/pictures/image_shoes.png',
+    'assets/pictures/image_shoes.png',
+    'assets/pictures/image_shoes.png',
+    'assets/pictures/image_shoes.png',
+    'assets/pictures/image_shoes.png',
+    'assets/pictures/image_shoes.png',
+  ];
+
   int currentIndex = 0;
   double _width = 16;
 
@@ -36,6 +45,22 @@ class _ProductPageState extends State<ProductPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: currentIndex == index ? primaryColor : Color(0xffc4c4c4),
+        ),
+      );
+    }
+
+    Widget _familiarShoes(String imageUrl) {
+      return Container(
+        width: 54,
+        height: 54,
+        margin: EdgeInsets.only(
+          right: 16,
+        ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageUrl),
+          ),
+          borderRadius: BorderRadius.circular(6),
         ),
       );
     }
@@ -103,11 +128,203 @@ class _ProductPageState extends State<ProductPage> {
       );
     }
 
+    Widget _content() {
+      int index = -1;
+
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 17),
+        decoration: BoxDecoration(
+          color: background3Color,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            // Note: Content
+            Container(
+              margin: EdgeInsets.only(
+                  top: defaultMargin,
+                  left: defaultMargin,
+                  right: defaultMargin),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Raiden Shogun",
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 18,
+                            fontWeight: semibold,
+                          ),
+                        ),
+                        Text(
+                          "Football",
+                          style: secondaryTextStyle.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.asset(
+                    "assets/material/favorite_button.png",
+                    width: 46,
+                  )
+                ],
+              ),
+            ),
+            // Note: Price
+            Container(
+              margin: EdgeInsets.only(
+                top: 20,
+                left: defaultMargin,
+                right: defaultMargin,
+              ),
+              padding: EdgeInsets.all(16),
+              height: 50,
+              decoration: BoxDecoration(
+                color: background5Color,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Price Starts from",
+                    style: primaryTextStyle,
+                  ),
+                  Text(
+                    "\$25.00",
+                    style: priceTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: semibold,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // Note: Description
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(
+                top: 30,
+                left: defaultMargin,
+                right: defaultMargin,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Description",
+                    style: primaryTextStyle.copyWith(
+                      fontWeight: medium,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.",
+                    style: subtitleTextStyle.copyWith(
+                      fontWeight: light,
+                    ),
+                    textAlign: TextAlign.justify,
+                  )
+                ],
+              ),
+            ),
+            // Note: Familiar Shoes
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(
+                top: 30,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                    child: Text(
+                      "Familiar Shoes",
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: medium,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: familiarShoesList.map((image) {
+                        index++;
+                        return Container(
+                          margin: EdgeInsets.only(
+                            left: index == 0 ? defaultMargin : 0,
+                          ),
+                          child: _familiarShoes(image),
+                        );
+                      }).toList(),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            // Note: Buttons
+            Container(
+              margin: EdgeInsets.all(defaultMargin),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 54,
+                    height: 54,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/material/chat_button.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 54,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Add to cart",
+                          style: primaryTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: semibold,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: background6Color,
       body: ListView(
         children: <Widget>[
           _header(),
+          _content(),
         ],
       ),
     );
